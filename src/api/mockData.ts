@@ -6,15 +6,15 @@ export const games: Game[] = [
         name: "Sugar Rush",
         img: "/assets/images/games/sugar-rush.webp",
         categoryId: "new",
-        provider: "1", // Pragmatic Play
-        isFavorite: false,
+        provider: "15",
+        isFavorite: true,
     },
     {
         id: "2",
         name: "Shaolin Crew",
         img: "/assets/images/games/shaolin-crew.webp",
         categoryId: "slots",
-        provider: "2", // Expanse Studios
+        provider: "4",
         isFavorite: false,
     },
     {
@@ -22,7 +22,7 @@ export const games: Game[] = [
         name: "Big Bad Wolf",
         img: "/assets/images/games/big-bad-wolf.webp",
         categoryId: "live",
-        provider: "3", // Playtech
+        provider: "14",
         isFavorite: false,
     },
     {
@@ -30,23 +30,23 @@ export const games: Game[] = [
         name: "Book of Egypt",
         img: "/assets/images/games/book-of-egypt.webp",
         categoryId: "slots",
-        provider: "2", // Expanse Studios
-        isFavorite: false,
+        provider: "4",
+        isFavorite: true,
     },
     {
         id: "5",
         name: "Azteca Bonus Lines: Powerplay Jackpot",
         img: "/assets/images/games/azteca-bonus-lines.webp",
         categoryId: "jackpots",
-        provider: "3", // Playtech
-        isFavorite: false,
+        provider: "14",
+        isFavorite: true,
     },
     {
         id: "6",
         name: "Pirates Power",
         img: "/assets/images/games/pirates-power.webp",
         categoryId: "slots",
-        provider: "2", // Expanse Studios
+        provider: "4",
         isFavorite: false,
     },
     {
@@ -54,7 +54,7 @@ export const games: Game[] = [
         name: "Crocodile Blitz Xtreme FB",
         img: "/assets/images/games/crocodile-blitz.webp",
         categoryId: "new",
-        provider: "3", // Playtech
+        provider: "14",
         isFavorite: false,
     },
     {
@@ -62,7 +62,7 @@ export const games: Game[] = [
         name: "Anaconda Wild 2 Powerplay Jackpot",
         img: "/assets/images/games/anaconda-wild-2.webp",
         categoryId: "jackpots",
-        provider: "3", // Playtech
+        provider: "4",
         isFavorite: false,
     },
     {
@@ -70,7 +70,7 @@ export const games: Game[] = [
         name: "Maya Jackpot",
         img: "/assets/images/games/maya-jackpot.webp",
         categoryId: "jackpots",
-        provider: "4", // Skywind Group
+        provider: "6",
         isFavorite: false,
     },
     {
@@ -78,7 +78,7 @@ export const games: Game[] = [
         name: "Inca Jackpot",
         img: "/assets/images/games/inca-jackpot.webp",
         categoryId: "jackpots",
-        provider: "4", // Skywind Group
+        provider: "5",
         isFavorite: false,
     },
     {
@@ -86,7 +86,7 @@ export const games: Game[] = [
         name: "Beach Life",
         img: "/assets/images/games/beach-life.webp",
         categoryId: "slots",
-        provider: "3", // Playtech
+        provider: "14",
         isFavorite: false,
     },
     {
@@ -94,7 +94,7 @@ export const games: Game[] = [
         name: "Pride of Persia Empire Treasures",
         img: "/assets/images/games/pride-of-persia.webp",
         categoryId: "jackpots",
-        provider: "4", // Skywind Group
+        provider: "14", 
         isFavorite: false,
     },
 ];

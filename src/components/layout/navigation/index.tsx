@@ -1,5 +1,9 @@
 import Icon from '../../common/icon'
 import { navigation } from '../../../api/mockData'
+import { useGamesStore } from '../../../store';
+import { useCallback, useState } from 'react';
+import { debounce } from '../../../lib/utils';
+import { GameProviderDrawer } from '../../../components/game-provider-drawer';
 
 type NavigationProps = {
     selectedNav: string;
@@ -7,17 +11,33 @@ type NavigationProps = {
 };
 
 export const Navigation: React.FC<NavigationProps> = ({ selectedNav, setSelectedNav }) => {
+    const { setSearchQuery, toggleSearch, isSearchActive } = useGamesStore();
+    const [localSearchQuery, setLocalSearchQuery] = useState("");
+
+    const debouncedSetSearchQuery = useCallback(
+        debounce((value: string) => {
+            setSearchQuery(value); 
+        }, 300),
+        [setSearchQuery]
+    );
+
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setLocalSearchQuery(value);
+        debouncedSetSearchQuery(value);
+    };
+        
     return (
-        <div className="bg-white">
+        <div className="sticky top-[64px] z-50 bg-white">
             <nav className="overflow-x-auto scrollbar-hide border-y">
                 <div className="relative flex justify-between min-w-max items-center">
                     <div
-                        onClick={() => setSelectedNav("search")}
-                        className={`sticky top-0 z-10  flex flex-col items-center gap-1 p-4 min-w-[100px] cursor-pointer hover:bg-blue-50 ${selectedNav === "search" ? "bg-blue-50 text-brightBlue font-medium" : "text-custom-gray"
+                        onClick={() => toggleSearch()}
+                        className={`sticky left-0 z-10 bg-white border-r flex flex-col items-center gap-1 p-4 min-w-[100px] cursor-pointer hover:text-brightBlue ${isSearchActive ? "text-brightBlue font-medium" : "text-custom-gray"
                             }`}
                     >
                         <Icon name="search" className="w-6 h-6" />
-                        <span className={`text-sm ${selectedNav === "search" && "underline"}`}>SEARCH</span>
+                        <span className={`text-sm ${isSearchActive && "underline"}`}>SEARCH</span>
                     </div>
                     {navigation.map((item, index) => (
                         <a
@@ -32,21 +52,21 @@ export const Navigation: React.FC<NavigationProps> = ({ selectedNav, setSelected
                     ))}
                 </div>
             </nav>
-            {selectedNav === "search" &&
-                <>
-                    <div className="p-4">
-                        <div className="relative">
+            {isSearchActive &&
+                <div className="flex p-4 gap-3">
+                    <div className="relative w-full">
                             <Icon name="search" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                             <input
+                                value={localSearchQuery}
+                                onChange={handleSearchChange}
                                 type="text"
                                 placeholder="Search games"
-                                className="w-full pl-10 pr-4 py-2 border rounded-lg"
+                                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-brightBlue"
                             />
-                        </div>
                     </div>
-                    <div className="p-4 text-center text-gray-500">No games found</div></>
+                    <GameProviderDrawer />
+                </div>
             }
-
         </div>
     )
 }

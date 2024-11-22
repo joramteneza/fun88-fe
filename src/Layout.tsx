@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "./components/layout/header";
 import { CarouselBanner } from "./components/layout/carousel";
+import Footer from "./components/layout/footer";
 
 
 interface ComponentProps {
@@ -12,6 +13,7 @@ const Layout: React.FC<ComponentProps> = ({ children }) => {
             <Header />
             <CarouselBanner />
             <div>{children}</div>
+            <Footer />
         </div>
     );
 };

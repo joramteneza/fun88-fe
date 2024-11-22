@@ -1,43 +1,92 @@
 import React, { useEffect, useState } from "react";
 import { Navigation } from "../../components/layout/navigation";
-import { games } from "../../api/mockData";
 import { useSearchParams } from "react-router-dom";
+import Icon from "../../components/common/icon";
+import { useGamesStore } from "../../store";
+import { Skeleton } from "../../../src/components/ui/skeleton";
 
 const Home: React.FC = () => {
+    const { games,
+        isGamesLoading: isLoading,
+        fetchGames,
+        toggleFavorite,
+        selectedTab,
+        setSelectedTab,
+    } = useGamesStore(); // Access Zustand store
+
     const [searchParams, setSearchParams] = useSearchParams();
-    const initialTab = searchParams.get("tab") || "start";
 
-    const [selectedNav, setSelectedNav] = useState(initialTab);
-
+    // Initialize selectedTab from searchParams on page load
     useEffect(() => {
-        setSearchParams({ tab: selectedNav });
-    }, [selectedNav, setSearchParams]);
+        const tab = searchParams.get("tab") || "start";
+        setSelectedTab(tab);
+    }, [searchParams, setSelectedTab]);
+
+    // Update searchParams when selectedTab changes
+    useEffect(() => {
+        setSearchParams({ tab: selectedTab });
+    }, [selectedTab, setSearchParams]);
+    useEffect(() => {
+        fetchGames(); // Fetch games on component mount
+    }, [fetchGames]);
+
 
     // Filter games by categoryId or display all for "start"
     const filteredGames =
-        selectedNav === "start"
+        selectedTab === "start"
             ? games
-            : games.filter((game) => game.categoryId === selectedNav);
+            : games.filter((game) => game.categoryId === selectedTab);
 
     return (
-        <div>
-            <Navigation selectedNav={selectedNav} setSelectedNav={setSelectedNav} />
-            <main className="p-4">
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                    {filteredGames.map((game) => (
-                        <div key={game.id} className="border rounded-lg p-2 shadow-md">
-                            <img
-                                src={game.img}
-                                alt={game.name}
-                                className="w-full h-40 object-cover rounded"
-                            />
-                            <h3 className="mt-2 text-center text-sm font-semibold">
-                                {game.name}
-                            </h3>
-                        </div>
-                    ))}
-                </div>
-                {filteredGames.length === 0 && (
+        <div className="">
+            <Navigation
+                selectedNav={selectedTab}
+                setSelectedNav={setSelectedTab}
+            />
+            <main className="container mx-auto p-4">
+                <div className="grid grid-cols-3 sm:grid-cols-3 gap-4">
+                    {isLoading ? (
+                        <>
+                            {Array.from({ length: 9 }).map((_, index) => (
+                                <Skeleton key={index} className="aspect-square rounded-2xl bg-custom-gray" />
+                            ))}
+                        </>
+                    ) : 
+                        <>
+                            {filteredGames.map((game) => (
+                                <div key={game.id} className="relative aspect-square overflow-hidden rounded-2xl">
+                                    {/* Favorite Icon */}
+                                    <Icon
+                                        name="favorite"
+                                        stroke={game.isFavorite ? "#facc15" : "white"}
+                                        className={`absolute top-1.5 right-[3px] cursor-pointer md:top-1.5 md:right-1 lg:top-2 lg:right-1.5 z-10 w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 ${
+                                            game.isFavorite ? "text-yellow-400" : "text-transparent"
+                                        }`}
+                                        onClick={() => toggleFavorite(game.id)}
+                                    />
+                                    {/* Favorite Mask Icon */}
+                                    <Icon
+                                        name="favorite-mask"
+                                        className="absolute top-0 right-0 z-0 opacity-80 rounded-tr-xl lg:rounded-tr-3xl"
+                                        style={{
+                                            width: "clamp(40px, 6vw, 60px)",
+                                            height: "clamp(40px, 6vw, 60px)",
+                                        }}
+                                    />
+                                    {/* Game Image */}
+                                    <img
+                                        src={game.img}
+                                        alt={game.name}
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
+
+                            ))}
+                        </>  
+                    }
+                </div>  
+
+                {!isLoading && filteredGames.length === 0 && (
                     <div className="text-center text-gray-500 mt-4">
                         No games found for this category.
                     </div>
