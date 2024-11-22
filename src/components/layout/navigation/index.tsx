@@ -29,14 +29,14 @@ export const Navigation: React.FC<NavigationProps> = ({ selectedNav, setSelected
         
     return (
         <div className="sticky top-[64px] z-50 bg-white">
-            <nav className="overflow-x-auto scrollbar-hide border-y">
-                <div className="relative flex justify-between min-w-max items-center">
+            <nav className="overflow-x-auto scrollbar-hide">
+                <div className="relative h-14 flex justify-between min-w-max items-center">
                     <div
                         onClick={() => toggleSearch()}
-                        className={`sticky left-0 z-10 bg-white border-r flex flex-col items-center gap-1 p-4 min-w-[100px] cursor-pointer hover:text-brightBlue ${isSearchActive ? "text-brightBlue font-medium" : "text-custom-gray"
+                        className={`sticky left-0 z-10 bg-white border-r flex flex-col items-center gap-1 p-4 min-w-[80px] cursor-pointer hover:text-brightBlue ${isSearchActive ? "text-brightBlue font-medium" : "text-custom-gray"
                             }`}
                     >
-                        <Icon name="search" className="w-6 h-6" />
+                        <Icon name="search" className="w-5 h-5" />
                         <span className={`text-sm ${isSearchActive && "underline"}`}>SEARCH</span>
                     </div>
                     {navigation.map((item, index) => (
@@ -46,14 +46,14 @@ export const Navigation: React.FC<NavigationProps> = ({ selectedNav, setSelected
                                 }`}
                             onClick={() => setSelectedNav(item.name)}
                         >
-                            <Icon name={item.name} className="w-6 h-6" />
+                            <Icon name={item.name} className="w-5 h-5" />
                             <span className="text-sm">{item.label}</span>
                         </a>
                     ))}
                 </div>
             </nav>
             {isSearchActive &&
-                <div className="flex p-4 gap-3">
+                <div className="flex px-4 py-2 gap-3">
                     <div className="relative w-full">
                             <Icon name="search" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                             <input

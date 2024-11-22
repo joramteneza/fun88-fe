@@ -26,3 +26,29 @@ export type Navigation = {
     name: "slots" | "new" | "start" | "live" | "jackpots" | "table-games" | "bingo" | "others";
     label: string;
 };
+
+export type FooterNavigation = {
+    icon: IconType
+    label: string;
+};
+
+export type IconType =
+  | "search"
+  | "slots"
+  | "new"
+  | "start"
+  | "live"
+  | "jackpots"
+  | "table-games"
+  | "bingo"
+  | "others"
+  | "favorite"
+  | "favorite-mask"
+  | "filter"
+  | "sports"
+  | "wallet"
+  | "invite"
+  | "bell"
+  | "user"
+  | "menu"
+  

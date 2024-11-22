@@ -9,10 +9,10 @@ interface ComponentProps {
 }
 const Layout: React.FC<ComponentProps> = ({ children }) => {
     return (
-        <div className="max-w-screen-xl mx-auto">
+        <div className="flex flex-col min-h-screen max-w-screen-xl mx-auto">
             <Header />
             <CarouselBanner />
-            <div>{children}</div>
+            <div className="flex flex-col flex-grow">{children}</div>
             <Footer />
         </div>
     );

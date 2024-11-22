@@ -21,7 +21,7 @@ export function GameProviderDrawer() {
         useGamesStore();
 
     useEffect(() => {
-        fetchProviders(); // Fetch providers on component mount
+        fetchProviders()
     }, [fetchProviders]);
 
     return (
@@ -62,7 +62,7 @@ export function GameProviderDrawer() {
                           {providers.map((provider) => (
                             <button
                                 key={provider.id}
-                                onClick={() => toggleProviderSelection(provider.id)} // Toggle provider selection
+                                onClick={() => toggleProviderSelection(provider.id)}  
                                 className={`flex h-16 items-center justify-center rounded-lg px-4 py-2 bg-blue-50 ${
                                     selectedProviders.includes(provider.id)
                                         ? "border-2 border-brightBlue text-primary-foreground"

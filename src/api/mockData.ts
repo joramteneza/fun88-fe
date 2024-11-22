@@ -1,4 +1,4 @@
-import { CarouselSlide, Game, Navigation, Provider } from "../types";
+import { CarouselSlide, FooterNavigation, Game, Navigation, Provider } from "../types";
 
 export const games: Game[] = [
     {
@@ -212,3 +212,27 @@ export const navigation: Navigation[] = [
     { id: "bingo", name: "bingo", label: "BINGO" },
     { id: "others", name: "others", label: "OTHERS" },
 ];
+
+
+export const footerNav: FooterNavigation[] = [
+    {
+      label: "SPORTS",
+      icon: "sports",
+    },
+    {
+      label: "FAVORITES",
+      icon: "favorite",
+    },
+    {
+      label: "INVITE",
+      icon: "invite",
+    },
+    {
+      label: "CASINO LIVE",
+      icon: "live",
+    },
+    {
+      label: "CASHIER",
+      icon: "wallet",
+    },
+  ]

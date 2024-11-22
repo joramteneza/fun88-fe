@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { fetchCarouselData } from "../../../api/mockApi";
 import { CarouselSlide } from "../../../types";
 import { Carousel } from "../../common/carousel";
+import Icon from "../../../components/common/icon";
+import { Skeleton } from "../../../components/ui/skeleton";
 
 export const CarouselBanner = () => {
     const [carouselData, setCarouselData] = useState<CarouselSlide[]>([]);
@@ -19,8 +21,8 @@ export const CarouselBanner = () => {
     return (
         <div className="w-full h-full p-4 flex flex-col gap-2">
             {isLoading ? (
-                <div className="flex items-center justify-center h-80">
-                    <span className="text-lg font-semibold text-gray-500">Loading...</span>
+                <div className="flex items-center justify-center">
+                    <Skeleton className="h-48 w-full rounded-2xl bg-custom-gray" />
                 </div>
             ) : carouselData.length > 0 ? (
                 <Carousel>
@@ -44,11 +46,8 @@ export const CarouselBanner = () => {
                 />
 
             )}
-            <div className="flex gap-2 items-center">
-                <img
-                    src={"/assets/icons/bell.svg"}
-                    alt="bell"
-                />
+            <div className="flex items-center">
+                <Icon name="bell" className="ml-3 mt-3 h-6 w-6 text-yellow-400" />
                 <span className="text-brightBlue text-sm">¡FELICIDADES artxxxxipa! GANADOR DESTACADO</span>
             </div>
         </div>

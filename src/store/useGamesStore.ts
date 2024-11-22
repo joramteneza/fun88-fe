@@ -37,15 +37,13 @@ export const useGamesStore = create<GamesState>((set, get) => ({
             const fetchedGames = await fetchGames(query);
             const { selectedProviders, originalGames } = get();
 
-            // Filter games based on the selected providers
             const filteredGames = selectedProviders.length
                 ? fetchedGames.filter((game) => selectedProviders.includes(game.provider))
                 : fetchedGames;
 
-            // Merge API data with current state to preserve toggled favorites
             const updatedGames = filteredGames.map((game) => {
                 const existingGame = originalGames.find((g) => g.id === game.id);
-                return existingGame || game; // Preserve modified games (e.g., isFavorite)
+                return existingGame || game;
             });
 
             set({ games: updatedGames, originalGames: updatedGames, isGamesLoading: false });
@@ -89,12 +87,11 @@ export const useGamesStore = create<GamesState>((set, get) => ({
         const { selectedProviders } = get();
         const isSelected = selectedProviders.includes(providerId);
 
-        // Add or remove the provider ID from the selectedProviders array
         const updatedProviders = isSelected
-            ? selectedProviders.filter((id) => id !== providerId) // Deselect
-            : [...selectedProviders, providerId]; // Select
+            ? selectedProviders.filter((id) => id !== providerId)
+            : [...selectedProviders, providerId];
 
         set({ selectedProviders: updatedProviders });
-        get().fetchGames(); // Refetch games with the updated providers
+        get().fetchGames();
     },
 }));

@@ -12,26 +12,22 @@ const Home: React.FC = () => {
         toggleFavorite,
         selectedTab,
         setSelectedTab,
-    } = useGamesStore(); // Access Zustand store
+    } = useGamesStore();
 
     const [searchParams, setSearchParams] = useSearchParams();
 
-    // Initialize selectedTab from searchParams on page load
     useEffect(() => {
         const tab = searchParams.get("tab") || "start";
         setSelectedTab(tab);
     }, [searchParams, setSelectedTab]);
 
-    // Update searchParams when selectedTab changes
     useEffect(() => {
         setSearchParams({ tab: selectedTab });
     }, [selectedTab, setSearchParams]);
     useEffect(() => {
-        fetchGames(); // Fetch games on component mount
+        fetchGames();
     }, [fetchGames]);
 
-
-    // Filter games by categoryId or display all for "start"
     const filteredGames =
         selectedTab === "start"
             ? games
@@ -87,7 +83,7 @@ const Home: React.FC = () => {
                 </div>  
 
                 {!isLoading && filteredGames.length === 0 && (
-                    <div className="text-center text-gray-500 mt-4">
+                    <div className="flex flex-1 items-center justify-center text-center text-gray-500 mt-4">
                         No games found for this category.
                     </div>
                 )}
